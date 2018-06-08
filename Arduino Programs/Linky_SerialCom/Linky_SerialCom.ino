@@ -121,6 +121,27 @@ void ropi(){
   }
 
   break;
+
+
+  case 90: //character "Z"
+  //Currently placing dummy variables 
+  //since RoPi library is expecting data
+  Serial.print("0");
+  Serial.print(" ");
+  Serial.print("0");
+  Serial.print(" ");
+  Serial.print("0");
+  Serial.print(" ");
+  Serial.print(speed);
+  Serial.print(" ");
+  Serial.print("0");
+  Serial.print(" ");
+  Serial.print("0");
+  Serial.print(" ");
+  Serial.println("0");
+  
+  //Serial.println(" ");
+  break;
   
   //========================================================
   case 97: //character "a"
