@@ -96,28 +96,6 @@ def filterColor(frame):
 
     return mask
 
-#to use this function you must give it the center of the object
-def ropiCenterTo(x,y):
-    amICentered = False
-    #the threshold for centering to an object
-    #threshold = 0.125*resolution_w
-    #error = (100*(x/(resolution_w/2)-1))
-    #print(error)
-    if x < (resolution_w/2-threshold):
-        
-        ropi.left()
-        print("left", x)
-    elif x > (resolution_w/2+threshold):
-        ropi.right()
-        print("right", x)
-    else:
-        amICentered = True
-        print("centered", x)
-
-    return amICentered
-
-
-ropi.speed(20)
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -130,8 +108,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # will be 3D, representing the width, height, and # of channels
     #convert the image into a numpy array
     frame = np.array(frame.array)
-
-
     
     #///////////////////////////
     mask = filterColor(frame)
@@ -158,18 +134,25 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         #if the radius of that object is bigger than 15 pixels
         if(radius > 15):
             if x < (resolution_w/2-threshold):
+                ropi.speed(20)
                 ropi.left()
+                time.sleep(0.05)
+                ropi.stop()
                 print("left", x)
             elif x > (resolution_w/2+threshold):
+                ropi.speed(20)
                 ropi.right()
+                time.sleep(0.05)
+                ropi.stop()
                 print("right", x)
             else:
                 print("centered", x) 
-                ropi.stop()
+                ropi.speed(70)
+                ropi.forward()
             
 
     else:
-        print("Nothing detected stopping")
+        #print("Nothing detected stopping")
         ropi.stop()
     #-----------------------------------------------------------------------                
 
@@ -181,9 +164,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
  
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
+        ropi.stop()
         break
-    if key == ord("Q"):
-        break
+
 
 
     cv2.imshow("frame", frame)
@@ -198,4 +181,5 @@ rawCapture.truncate(0)
 cv2.destroyAllWindows()
 #just in case the robot is still moving
 ropi.stop()
+print("End of Program")
             

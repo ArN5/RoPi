@@ -6,19 +6,20 @@ import serial
 
 ser = serial.Serial('/dev/ttyUSB0',115200)
 
+
 def readSensors():
-	#FrontLeft,FrontMiddle,FrontRight
-	#SBottomLeft,SBottomRight
-	#Battery Level
-	#Mic level
+    #FrontLeft,FrontMiddle,FrontRight
+    #SBottomLeft,SBottomRight
+    #Battery Level
+    #Mic level
     ser.write("L")
     read_serial = ser.readline()
-    topLeft,topMiddle,topRight,bottomLeft,bottomRight,batterylvl, miclvl = read_serial.split(" ")
-    return int(topLeft),int(topMiddle),int(topRight),int(bottomLeft),int(bottomRight),int(batterylvl), int(miclvl)
+    topLeft,topMiddle,topRight,bottomLeft,bottomRight,batterylvl, miclvl = read_serial.split(",")
+    return int(topLeft),int(topMiddle),int(topRight),int(bottomLeft),int(bottomRight),float(batterylvl), int(miclvl)
 
 #returns a tuple with the data as integers
 def requestData():
-	#ON linky only speed is currently requested
+    #ON linky only speed is currently requested
 
     ser.write("Z")#REQUEST INFO
     read_serial = ser.readline()
