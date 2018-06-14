@@ -62,12 +62,10 @@ def speed(speedPercentage):
     while(currentSpeed > speedPercentage):
         servo1Angle,servo2Angle,servoStep,speed,a19,a20,a21 = requestData()
         currentSpeed = speed
-        #print(currentSpeed)
         speedDecrease()
     while(currentSpeed < speedPercentage):
         servo1Angle,servo2Angle,servoStep,speed,a19,a20,a21 = requestData()
         currentSpeed = speed
-        #print(currentSpeed)
         speedIncrease()
     
     
