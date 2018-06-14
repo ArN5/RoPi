@@ -20,9 +20,9 @@ camera = PiCamera()
 
 #these are the different camera resolutions
 #comment out one and try the other ones, note the difference in speed
-resolution = (640, 480)
+#resolution = (640, 480)
 #resolution = (320, 240)
-#resolution = (160,128)
+resolution = (160,128)
 #resolution = (80,64)
 #resolution = (48,32)
 
@@ -44,7 +44,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     frame = np.array(frame.array)
 
     #flip the frame if you need to ex. change 0 to 1,2 etc.
-    frame = cv2.flip(frame,0)
+    frame = cv2.flip(frame,-1)
 
     # clear the stream in preparation for the next frame
     rawCapture.truncate(0)

@@ -85,7 +85,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     frame = np.array(frame.array)
 
     #flip the frame if you need to ex. change 0 to 1,2 etc.
-    frame = cv2.flip(frame,0)
+    frame = cv2.flip(frame,-1)
     
     #turn into HSV color space, Hue Saturation and Value
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
