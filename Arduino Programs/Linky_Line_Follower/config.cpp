@@ -911,18 +911,9 @@ void LedDisplay(int count, int time)
 void PrintSensor()
 {
 
-  Serial.print(analogRead(SFL));
-  Serial.print("\t");
-  Serial.print(analogRead(SFF));
-  Serial.print("\t");
-  Serial.print(analogRead(SFR));
-  Serial.print("\t");
-  Serial.print(analogRead(SBL));
-  Serial.print("\t");
-  Serial.print(analogRead(SBR));
-  Serial.print("\t");
-  Serial.print(ReadVoltage());
-  Serial.print("\t");
+  Serial.print(analogRead(SFL));  Serial.print("\t"); Serial.print(analogRead(SFF));   Serial.print("\t");
+  Serial.print(analogRead(SFR));  Serial.print("\t"); Serial.print(analogRead(SBL));   Serial.print("\t");
+  Serial.print(analogRead(SBR));  Serial.print("\t"); Serial.print(ReadVoltage());      Serial.print("\t");
   Serial.println(ReadMic());
 
 }

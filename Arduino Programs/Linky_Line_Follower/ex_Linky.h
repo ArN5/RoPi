@@ -119,19 +119,21 @@ void RemoconControl(int speed)
 
 
 //-----------------------------------------------------------------------------------------------------------------------//
-//---------------------------------------------------- LineTracer -------------------------------------------------------//
+//---------------------------------------------------- LineTracer MODIFIED-----------------------------------------------//
 //-----------------------------------------------------------------------------------------------------------------------//
-int baseLV = 850;
+int baseLV = 950;
 
 void LineTracer(int speed)
 {
   delay(300);
-
+  
+  int sensorFF = analogRead(SFF);
   int  baseLV_L = 1023;
   int  baseLV_R = 1023;
 
   for (int i = 0; i < 100; i++)
   {
+    //Serial.println(analogRead(SBL));
     baseLV_L  = min(analogRead(SBL), baseLV_L);
     baseLV_R  = min(analogRead(SBR), baseLV_R);
   }
@@ -150,16 +152,28 @@ void LineTracer(int speed)
 
   int melody[] = {1702, 593, 1243};
   int tempo[] = {12, 12, 8};
+  int obstacle[] = {1680, 1210};
+  int tempo2[] = {5, 5};
   SoundProcess(melody, tempo, 3);
-
+  
+  
   while (1)
   {
+    int sensorFF = analogRead(SFF);
+    int sensorFL
     int sensorBL = analogRead(SBL);
     int sensorBR = analogRead(SBR);
-
-    if (sensorBL > baseLV_L && sensorBR > baseLV_R)   DCMove(forward, speed);
-    else if (sensorBL > baseLV_L && sensorBR > baseLV_R)    DCMove(right, speed);
-    else if (sensorBL < baseLV_L && sensorBR < baseLV_R)   DCMove(left, speed);
+    if (sensorFF < 400)
+  {
+    DCMove(backward, speed);
+    delay(150);
+    SoundProcess(obstacle, tempo2, 2);
+    DCMove(right, speed);
+    delay(900);
+  }
+    if (sensorBL < baseLV_L && sensorBR < baseLV_R)   DCMove(forward, speed);
+    else if (sensorBL > baseLV_L && sensorBR < baseLV_R)    DCMove(right, speed);
+    else if (sensorBL > baseLV_L && sensorBR > baseLV_R)   DCMove(left, speed);
     else if (sensorBL < baseLV_L)   DCMove(left, speed);
     else if (sensorBR < baseLV_R)   DCMove(right, speed);
   }
@@ -219,3 +233,4 @@ void CliffBot(int speed)
     DCMove(forward, speed);
   }
 }
+
