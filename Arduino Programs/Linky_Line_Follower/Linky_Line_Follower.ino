@@ -14,11 +14,11 @@
 #include "RokitFirmata.h"
 
 int mode = 0;
-int basicSpeed = 0;
+int basicSpeed = 100;
 
 void setup()
 {
-  Serial.begin(57600);
+  Serial.begin(115200);
   LowBatCheck();        //  Low Battery check - 3.7v
   initialize();
 
@@ -27,8 +27,8 @@ void setup()
   //-------------------------------------------------------------------------------------------------------------------------------------------//
 
   mode = ModeSelect();
-  if (mode == FIRMATA)  RokitFiramata();
-  basicSpeed = DCSpeedLoad();
+  //if (mode == FIRMATA)  RokitFiramata();
+  //basicSpeed = DCSpeedLoad();
 
   Sound_1up();
   LedDisplay(1, 100);
@@ -36,9 +36,12 @@ void setup()
 
 void loop()
 {
-  if (mode == AVOID)              Avoid(basicSpeed);      //  sensor Left
-  else if (mode == LINE_TRACER)   LineTracer(basicSpeed); //  sensor Right
-  else if (mode == UNPLUGGED)     Unplugged(basicSpeed);   //  sensor Front  (Unplugged & Remocon)
+  //if (mode == AVOID)              Avoid(basicSpeed);      //  sensor Left
+  //else if (mode == LINE_TRACER)   LineTracer(basicSpeed); //  sensor Right
+  //else if (mode == UNPLUGGED)     Unplugged(basicSpeed);   //  sensor Front  (Unplugged & Remocon)
+  
+  //this is a forever loop
+  LineTracer(basicSpeed);
 
   int sound = ReadMic();      // Sensing clap sound
   float vin = ReadVoltage();  // Read Volatage
@@ -47,7 +50,7 @@ void loop()
   else if (sound > 600) LEDColorG(100); //  bright 0~100 ,100: always on
   else  LEDColorG(0); //0: off
 
-  PrintSensor();
+  //PrintSensor();
 }
 
 

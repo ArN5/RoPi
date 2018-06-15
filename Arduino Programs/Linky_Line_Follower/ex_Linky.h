@@ -125,19 +125,20 @@ int baseLV = 950;
 
 void LineTracer(int speed)
 {
-  delay(300);
+  //delay(300);
   
   int sensorFF = analogRead(SFF);
   int  baseLV_L = 1023;
   int  baseLV_R = 1023;
 
+  //sample the minim. values of the sensor
   for (int i = 0; i < 100; i++)
   {
-    //Serial.println(analogRead(SBL));
     baseLV_L  = min(analogRead(SBL), baseLV_L);
     baseLV_R  = min(analogRead(SBR), baseLV_R);
   }
 
+  //in case it goes to low add threshold of 50
   baseLV_L += 50;
   baseLV_R += 50;
 
@@ -160,7 +161,6 @@ void LineTracer(int speed)
   while (1)
   {
     int sensorFF = analogRead(SFF);
-    int sensorFL
     int sensorBL = analogRead(SBL);
     int sensorBR = analogRead(SBR);
     if (sensorFF < 400)
